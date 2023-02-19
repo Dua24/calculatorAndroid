@@ -1,5 +1,6 @@
 package com.example.androidbuoi1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -23,8 +24,18 @@ TextView tv;
         String cal = intent.getStringExtra("cal");
         String r = intent.getStringExtra("r");
         tv.setText("History cal: " + v1 + " " + cal + " " + v2 + " = " + r);
+    }
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (tv.getText().toString()!=null)
+            outState.putString("review", tv.getText().toString());
+    }
 
-
-
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState.get("review")!=null)
+            tv.setText(savedInstanceState.get("review").toString());
     }
 }
